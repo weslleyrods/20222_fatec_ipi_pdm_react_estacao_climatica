@@ -39,9 +39,7 @@ export class EstacaoClimatica extends React.Component{
                             {
                                 //expressaoLogica ? v1 : v2
                                 this.setState.latitude ?
-                                    `Coordenadas: ${this.props.latitude}, ${this.props.longitude}. Data: ${this.props.data}`
-                                : this.props.mensagemDeErro ? 
-                                `${this.props.mensagemDeErro}`
+                                    `Coordenadas: ${this.props.latitude}, ${this.props.longitude}. Data: ${this.state.data}`
                                 :
                                     `Clique no botão para saber a sua estação climática`
                             }
