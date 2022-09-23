@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {EstacaoClimatica} from './EstacaoClimatica';
+import { toHaveDisplayValue } from '@testing-library/jest-dom/dist/matchers';
 
 // export default function App(){
     
@@ -16,18 +18,40 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component{
 
-    constructor(props){
-        super(props)
-        this.state={
-                latitude: null,
-                longitude: null,
-                estacao:null,
-                data: null,
-                icone: null,
-                mensagemDeErro: null
-            }
+    // constructor(props){
+    //     super(props)
+    //     this.state={
+    //             latitude: null,
+    //             longitude: null,
+    //             estacao:null,
+    //             data: null,
+    //             icone: null,
+    //             mensagemDeErro: null
+    //         }
+    //     //console.log('construtor');
+    //     }
+
+    state = {
+        latitude: null,
+        longitude: null,
+        estacao: null,
+        data: null,
+        icone: null,
+        mensagemDeErro: null
         }
 
+        componentDidMount(){
+            this.obterLocalizacao()
+        }
+
+        // componentDidUpdate(){
+        //     console.log('componenteDidUpdate');
+        // }
+
+        // componentWillUnmount(){
+        //     console.log('componentWillUnmount');
+        // }
+    
 
 obterEstacao = (data, latitude)=>{
     const anoAtual = data.getFullYear();
@@ -45,36 +69,20 @@ obterEstacao = (data, latitude)=>{
     return sul ? 'Outono' : 'Primavera';
 }
     render(){
+        //console.log('render');
         return(
         <div className="container mt-2">
             <div className="row justify-content-center">
                 <div className="col-mt-8">
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="d-flex align-items-center border rounded mb-2" style={{height: '6rem'}}>
-                                <i className={`fas fa-5x ${this.state.icone}`}></i>
-                                <p className="w-75 ms-3 text-center fs-1">
-                                    {this.state.estacao}
-                                </p>
-                            </div>
-                            <div>
-                                <p className="text-center">
-                                    {
-                                        //expressaoLogica ? v1 : v2
-                                        this.setState.latitude ?
-                                            `Coordenadas: ${this.state.latitude}, ${this.state.longitude}. Data: ${this.state.data}`
-                                        : this.state.mensagemDeErro ? 
-                                        `${this.state.mensagemDeErro}`
-                                        :
-                                            `Clique no botão para saber a sua estação climática`
-                                    }
-                                </p>
-                            </div>
-                            <button className='btn btn-outline-primary w-100 mt-2'onClick={this.obterLocalizacao}>
-                                Qual é a minha estação?
-                            </button>
-                        </div>
-                    </div>
+                    <EstacaoClimatica
+                    icone={this.state.icone}
+                    estacao={this.state.estacao}
+                    latitude={this.state.latitude}
+                    longitude={this.state.longitude}
+                    data={this.state.data}
+                    mensagemDeErro={this.state.mensagemDeErro}
+                    obterLocalizacao={this.obterLocalizacao}
+                    />
                 </div>
             </div>
         </div>
